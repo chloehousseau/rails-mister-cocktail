@@ -1,13 +1,30 @@
 
+
+<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://unsplash.com/photos/xBFTjrMIC0c')">
+  <h1>  <%= @cocktail.name %> </h1>
+  <h2> <%= link_to "Back to all cocktails", cocktails_path, class: "btn btn-ghost" %> </h2>
+</div>
+
+
+
+
 <div>
 
-         <% @cocktail.doses.each do |dose| %>
 
-              <p><%= dose.ingredient.name %></p>
-              <p><%= dose.description %></p>
-              <p>
-                <%= link_to dose_path(dose), method: :delete, data: { confirm: "Are you sure?" } do %>
-                <% end %>
-              </p>
-          <% end %>
+<% @cocktail.doses.each do |dose| %>
+ <p><%= dose.ingredient.name %></p>
+  <p><%= dose.description %></p>
+  <%= link_to 'delete dose', dose_path(dose), method: :delete, data: { confirm: "Are you sure?" }  %>
+<% end %>
 </div>
+
+<div>
+<h3>Add a new dose</h3>
+<%= simple_form_for [@cocktail, @dose] do |f| %>
+  <%= f.association :ingredient, include_hidden: false %>
+  <%= f.input :description %>
+  <%= f.button :submit %>
+<% end %>
+</div>
+
+
